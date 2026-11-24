@@ -1,16 +1,19 @@
 /* Meu Devocional — visual calmo, letra grande, uma ação principal por tela */
 :root {
-  --papel: #F6F7F3;
-  --superficie: #FFFFFF;
-  --tinta: #1E2A22;
-  --oliva: #2E4636;
-  --salvia: #B7C6B2;
-  --salvia-clara: #E3EAE0;
-  --amanhecer: #D9A43A;
-  --suave: #5C6B61;
+  /* Identidade SEPOL: laranja só em destaques e botões; fundos em tom médio */
+  --fundo: #4A5361;
+  --fundo-baixo: #434B58;
+  --superficie: #56606E;
+  --superficie-2: #616B79;
+  --borda: #6E7886;
+  --tinta: #F4EFE9;
+  --suave: #C9CED6;
+  --laranja: #E8843C;
+  --laranja-claro: #F2A465;
+  --sobre-laranja: #2B2F36;
   --serifa: "Iowan Old Style", "Palatino Linotype", Palatino, "Noto Serif", Georgia, serif;
   --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", sans-serif;
-  --raio: 14px;
+  --raio: 16px;
   --espaco: 1.25rem;
 }
 
@@ -18,7 +21,11 @@
 html { font-size: 18px; -webkit-text-size-adjust: 100%; }
 body {
   margin: 0;
-  background: var(--papel);
+  min-height: 100vh;
+  background:
+    radial-gradient(120% 55% at 50% -8%, rgba(232, 132, 60, .30), rgba(232, 132, 60, 0) 62%),
+    linear-gradient(180deg, var(--fundo) 0%, var(--fundo-baixo) 100%) fixed;
+  background-color: var(--fundo);
   color: var(--tinta);
   font-family: var(--sans);
   line-height: 1.55;
@@ -30,7 +37,7 @@ body {
   min-height: 100vh;
 }
 
-h1, h2, h3 { font-family: var(--serifa); font-weight: 600; line-height: 1.2; margin: 0 0 .5rem; color: var(--oliva); }
+h1, h2, h3 { font-family: var(--serifa); font-weight: 600; line-height: 1.2; margin: 0 0 .5rem; color: var(--tinta); }
 h1 { font-size: 1.6rem; }
 h2 { font-size: 1.25rem; }
 p { margin: 0 0 1rem; }
@@ -46,12 +53,13 @@ button, .botao {
   cursor: pointer;
   min-height: 48px;
 }
-.primario { background: var(--oliva); color: #fff; font-weight: 600; }
-.primario:hover { background: #263b2d; }
-.secundario { background: transparent; color: var(--oliva); border: 1.5px solid var(--salvia); }
-.link { background: none; color: var(--oliva); padding: .5rem 0; text-decoration: underline; text-underline-offset: 3px; min-height: auto; }
+.primario { background: var(--laranja); color: var(--sobre-laranja); font-weight: 700; box-shadow: 0 6px 18px rgba(232, 132, 60, .28); }
+.primario:hover { background: var(--laranja-claro); }
+.secundario { background: var(--superficie); color: var(--tinta); border: 1.5px solid var(--borda); }
+.secundario:hover { border-color: var(--laranja); }
+.link { background: none; color: var(--laranja-claro); padding: .5rem 0; text-decoration: underline; text-underline-offset: 3px; min-height: auto; }
 button:focus-visible, textarea:focus-visible, input:focus-visible {
-  outline: 3px solid var(--amanhecer);
+  outline: 3px solid var(--laranja-claro);
   outline-offset: 2px;
 }
 .largo { width: 100%; }
@@ -61,10 +69,11 @@ button:focus-visible, textarea:focus-visible, input:focus-visible {
 /* Início */
 .saudacao { margin-bottom: 1.75rem; }
 .hoje {
-  background: var(--superficie);
-  border-radius: var(--raio);
-  padding: 1.5rem;
-  border: 1px solid var(--salvia-clara);
+  background: linear-gradient(160deg, var(--superficie-2), var(--superficie));
+  border-radius: 22px;
+  padding: 1.6rem;
+  border: 1px solid var(--borda);
+  box-shadow: 0 14px 34px rgba(30, 34, 41, .35);
   margin-bottom: 1.75rem;
 }
 .hoje .rotulo { color: var(--suave); font-size: .9rem; margin-bottom: .25rem; }
@@ -72,7 +81,7 @@ button:focus-visible, textarea:focus-visible, input:focus-visible {
   font-family: var(--serifa);
   font-size: 2.3rem;
   line-height: 1.1;
-  color: var(--oliva);
+  color: var(--laranja-claro);
   margin: 0 0 .35rem;
   letter-spacing: -.01em;
 }
@@ -82,36 +91,37 @@ button:focus-visible, textarea:focus-visible, input:focus-visible {
 .dia { display: flex; flex-direction: column; align-items: center; gap: .3rem; font-size: .75rem; color: var(--suave); }
 .bolinha {
   width: 1.6rem; height: 1.6rem; border-radius: 50%;
-  border: 2px solid var(--salvia);
-  background: transparent;
+  border: 2px solid var(--borda);
+  background: var(--fundo-baixo);
 }
-.bolinha.feita { background: var(--amanhecer); border-color: var(--amanhecer); }
-.dia.hoje-marcado span:last-child { color: var(--oliva); font-weight: 700; }
+.bolinha.feita { background: var(--laranja); border-color: var(--laranja); box-shadow: 0 0 10px rgba(232, 132, 60, .55); }
+.dia.hoje-marcado span:last-child { color: var(--laranja-claro); font-weight: 700; }
+.dia.hoje-marcado .bolinha { border-color: var(--laranja-claro); }
 
 .progresso { margin: 1.5rem 0; }
-.barra { height: .55rem; background: var(--salvia-clara); border-radius: 999px; overflow: hidden; margin: .4rem 0; }
-.barra > div { height: 100%; background: var(--amanhecer); border-radius: 999px; }
+.barra { height: .55rem; background: #363D48; border-radius: 999px; overflow: hidden; margin: .4rem 0; }
+.barra > div { height: 100%; background: linear-gradient(90deg, var(--laranja), var(--laranja-claro)); border-radius: 999px; }
 
 .atalhos { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
 .atalhos button { border-radius: var(--raio); font-size: .92rem; padding: .8rem .6rem; }
-.destaque { background: var(--salvia-clara); border-color: var(--oliva); }
+.destaque { border-color: var(--laranja); color: var(--laranja-claro); }
 
 .comemoracao { text-align: center; padding: 1rem 0; }
 
 /* Leitura do dia */
 .trilha { display: flex; gap: .35rem; margin-bottom: 1.5rem; }
-.trilha span { flex: 1; height: .3rem; background: var(--salvia-clara); border-radius: 999px; }
-.trilha span.ativo { background: var(--oliva); }
+.trilha span { flex: 1; height: .3rem; background: var(--superficie); border-radius: 999px; }
+.trilha span.ativo { background: var(--laranja); }
 .passo-num { color: var(--suave); font-size: .9rem; margin-bottom: .3rem; }
-.termo { font-family: var(--serifa); font-size: 1.8rem; color: var(--oliva); margin: .5rem 0; }
+.termo { font-family: var(--serifa); font-size: 1.8rem; color: var(--laranja-claro); margin: .5rem 0; }
 .pergunta { display: block; font-weight: 600; margin: 1.1rem 0 .4rem; }
 textarea, input[type="text"], input[type="search"] {
   width: 100%;
   font: inherit;
   padding: .75rem .9rem;
-  border: 1.5px solid var(--salvia);
-  border-radius: 10px;
-  background: var(--superficie);
+  border: 1.5px solid var(--borda);
+  border-radius: 12px;
+  background: var(--fundo-baixo);
   color: var(--tinta);
 }
 textarea { min-height: 5.5rem; resize: vertical; }
@@ -119,7 +129,7 @@ textarea { min-height: 5.5rem; resize: vertical; }
   font-family: var(--serifa);
   font-size: 1.2rem;
   line-height: 1.6;
-  border-left: 3px solid var(--amanhecer);
+  border-left: 3px solid var(--laranja);
   padding-left: 1rem;
   margin: 1rem 0 1.5rem;
 }
@@ -131,14 +141,14 @@ textarea { min-height: 5.5rem; resize: vertical; }
 .entrada {
   display: block; width: 100%; text-align: left;
   background: var(--superficie);
-  border: 1px solid var(--salvia-clara);
+  border: 1px solid var(--borda);
   border-radius: var(--raio);
   padding: 1rem 1.1rem;
   margin-bottom: .75rem;
   color: var(--tinta);
   font: inherit;
 }
-.entrada strong { font-family: var(--serifa); color: var(--oliva); font-size: 1.05rem; }
+.entrada strong { font-family: var(--serifa); color: var(--tinta); font-size: 1.05rem; }
 .entrada p { margin: .35rem 0 0; font-size: .92rem; color: var(--suave); }
 .versiculo { font-family: var(--serifa); font-style: italic; }
 .rodape { margin-top: 2rem; display: flex; flex-direction: column; gap: .75rem; }
@@ -147,12 +157,15 @@ textarea { min-height: 5.5rem; resize: vertical; }
 /* Aviso flutuante */
 .aviso {
   position: fixed; left: 50%; bottom: 1.5rem; transform: translateX(-50%);
-  background: var(--oliva); color: #fff;
+  background: var(--laranja); color: var(--sobre-laranja); font-weight: 600;
   padding: .8rem 1.2rem; border-radius: 999px;
   max-width: calc(100% - 2rem); text-align: center;
-  box-shadow: 0 6px 20px rgba(30, 42, 34, .25);
+  box-shadow: 0 8px 24px rgba(20, 24, 30, .4);
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .bolinha.feita { transition: background .3s ease; }
 }
+
+textarea::placeholder, input::placeholder { color: #9AA3AF; }
+.entrada:hover { border-color: var(--laranja); }
