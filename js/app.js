@@ -49,7 +49,7 @@ export function el(tag, atributos = {}, ...filhos) {
     else if (k === "class") e.className = v;
     else if (v !== false && v != null) e.setAttribute(k, v === true ? "" : v);
   }
-  for (const f of filhos.flat()) {
+  for (const f of filhos.flat(Infinity)) {
     if (f == null || f === false) continue;
     e.append(f instanceof Node ? f : document.createTextNode(String(f)));
   }
