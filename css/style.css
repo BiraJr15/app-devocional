@@ -156,12 +156,23 @@ textarea { min-height: 5.5rem; resize: vertical; }
 
 /* Aviso flutuante */
 .aviso {
-  position: fixed; left: 50%; bottom: 1.5rem; transform: translateX(-50%);
+  position: fixed; left: 50%; top: calc(env(safe-area-inset-top, 0px) + .75rem); transform: translateX(-50%);
   background: var(--laranja); color: var(--sobre-laranja); font-weight: 600;
-  padding: .8rem 1.2rem; border-radius: 999px;
-  max-width: calc(100% - 2rem); text-align: center;
+  font-size: .85rem; line-height: 1.35;
+  padding: .55rem 1rem; border-radius: 999px;
+  width: max-content; max-width: min(22rem, calc(100% - 2rem)); text-align: center;
   box-shadow: 0 8px 24px rgba(20, 24, 30, .4);
+  cursor: pointer; z-index: 10;
 }
+.feita-hoje {
+  display: flex; align-items: center; justify-content: space-between; gap: .75rem;
+  margin: -.75rem 0 1.5rem; padding: .6rem 1rem;
+  border: 1px dashed var(--borda); border-radius: var(--raio);
+  font-size: .92rem; color: var(--suave);
+}
+.feita-hoje p { margin: 0; }
+.feita-hoje .link { white-space: nowrap; }
+.editar { display: block; margin-top: .5rem; font-size: .82rem; color: var(--laranja-claro); }
 
 @media (prefers-reduced-motion: no-preference) {
   .bolinha.feita { transition: background .3s ease; }

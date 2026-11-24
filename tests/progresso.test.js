@@ -106,3 +106,11 @@ test("capítulo não é dado como terminado se o conteúdo do livro está incomp
   assert.equal(capituloTerminado(parcial, e, "fa-04"), null);
   assert.equal(capituloTerminado(parcial, e, "fa-02"), 1);
 });
+
+import { leiturasDeHoje } from "../js/core/progresso.js";
+
+test("leiturasDeHoje lista o que foi concluído hoje, na ordem do livro", () => {
+  const e = com(["fa-01", 23], ["fa-02", 24], ["fa-03", 24]);
+  assert.deepEqual(leiturasDeHoje(livro, e, dia(24, 22)).map((l) => l.id), ["fa-02", "fa-03"]);
+  assert.deepEqual(leiturasDeHoje(livro, e, dia(25)), []);
+});

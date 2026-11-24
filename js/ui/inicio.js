@@ -1,7 +1,7 @@
 // Tela Início: saudação, leitura de hoje, semana e progresso.
 import { el, irPara, getEstado, livroAtual, getVisitaAnterior } from "../app.js";
 import {
-  META_SEMANAL, proximaLeitura, progressoLivro, diasDaSemana, saudacao,
+  META_SEMANAL, proximaLeitura, progressoLivro, diasDaSemana, saudacao, leiturasDeHoje,
 } from "../core/progresso.js";
 import { proximoLivro } from "../core/plano.js";
 
@@ -19,6 +19,7 @@ export function render(raiz) {
   raiz.append(
     el("h1", { class: "saudacao" }, saudacao({ ...estado, ultimaVisita: getVisitaAnterior() }, hoje)),
     leitura ? cartaoHoje(leitura) : cartaoFim(livro),
+    leiturasDeHoje(livro, estado, hoje).map(feitaHoje),
     el("section", { "aria-label": "Sua semana" },
       el("h2", {}, "Esta semana"),
       el("div", { class: "semana" },
@@ -60,5 +61,12 @@ function cartaoFim(livro) {
     el("p", {}, `Você concluiu todas as leituras disponíveis de ${livro.nome}.`),
     prox && el("p", { class: "leve" },
       `Próximo livro sugerido: ${prox.nome}${prox.disponivel ? "" : " (ainda em preparação)"}`),
+  );
+}
+
+function feitaHoje(leitura) {
+  return el("div", { class: "feita-hoje" },
+    el("p", {}, `Hoje você leu ${leitura.ref}.`),
+    el("button", { class: "link", onclick: () => irPara("leitura", { id: leitura.id, passo: 4, voltar: "inicio" }) }, "Editar respostas"),
   );
 }

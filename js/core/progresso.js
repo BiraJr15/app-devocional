@@ -81,3 +81,9 @@ export function saudacao(estado, hoje, nome = "Bira") {
 export function registrarVisita(estado, hoje) {
   return { ...estado, ultimaVisita: dataLocal(hoje) };
 }
+
+// Leituras concluídas hoje (para o atalho "Editar respostas" no Início).
+export function leiturasDeHoje(livro, estado, hoje) {
+  const hojeTexto = dataLocal(hoje);
+  return livro.leituras.filter((l) => estado.concluidas[l.id]?.data === hojeTexto);
+}
