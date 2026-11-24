@@ -28,7 +28,9 @@ export function livroAtual() {
 export function irPara(tela, params) {
   const raiz = document.getElementById("app");
   raiz.innerHTML = "";
-  telas[tela].render(raiz, params);
+  // As telas chamam raiz.append(...) com listas e valores vazios; "montar" cuida disso.
+  const alvo = { append: (...filhos) => raiz.append(...montar(...filhos)) };
+  telas[tela].render(alvo, params);
   window.scrollTo(0, 0);
 }
 
@@ -39,6 +41,11 @@ export function avisar(texto) {
   el.hidden = false;
   clearTimeout(temporizador);
   temporizador = setTimeout(() => { el.hidden = true; }, 3500);
+}
+
+// Lista de filhos pronta para raiz.append(...): achata listas e ignora vazios/false.
+export function montar(...filhos) {
+  return filhos.flat(Infinity).filter((f) => f != null && f !== false);
 }
 
 // Pequeno ajudante para criar elementos sem escrever HTML em texto.

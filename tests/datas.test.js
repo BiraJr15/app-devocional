@@ -15,3 +15,8 @@ test("diasEntre conta dias inteiros", () => {
   assert.equal(diasEntre("2026-10-31", "2026-11-01"), 1);
   assert.equal(diasEntre("2026-11-24", "2026-11-24"), 0);
 });
+
+import { dataCurta } from "../js/core/datas.js";
+test("dataCurta mostra dia/mês", () => {
+  assert.equal(dataCurta("2026-11-03"), "03/11");
+});

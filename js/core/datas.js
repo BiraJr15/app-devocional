@@ -18,3 +18,9 @@ function paraMeioDiaUTC(texto) {
 export function diasEntre(a, b) {
   return Math.round((paraMeioDiaUTC(b) - paraMeioDiaUTC(a)) / 86400000);
 }
+
+// "2026-11-03" → "03/11"
+export function dataCurta(texto) {
+  const [, m, d] = texto.split("-");
+  return `${d}/${m}`;
+}
