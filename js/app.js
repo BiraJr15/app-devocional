@@ -71,3 +71,8 @@ export function getVisitaAnterior() {
 
 setEstado(registrarVisita(estado, new Date()));
 irPara("inicio");
+
+// Funcionar sem internet (só quando aberto por um servidor, não como arquivo solto).
+if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
+  navigator.serviceWorker.register("./sw.js").catch(() => {});
+}
