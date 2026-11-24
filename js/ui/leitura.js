@@ -93,10 +93,15 @@ function campo(chave, rotulo, tipo) {
 }
 
 function concluir(leitura, livro) {
+  const jaFeita = Boolean(getEstado().concluidas[leitura.id]);
   const novo = concluirLeitura(getEstado(), leitura.id, rascunho.respostas, new Date());
   setEstado(novo);
   rascunho = null;
   const cap = capituloTerminado(livro, novo, leitura.id);
+  if (jaFeita) {
+    avisar("Respostas atualizadas.");
+    return irPara("diario");
+  }
   avisar(cap ? `Você terminou o capítulo ${cap} de ${livro.nome}!` : "Leitura concluída. Até amanhã!");
   irPara("inicio");
 }

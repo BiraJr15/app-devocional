@@ -1,5 +1,5 @@
 // Ponto de partida do app: guarda o estado em memória e troca as telas.
-import { carregarEstado, salvarEstado } from "./core/storage.js";
+import { carregarComAviso, salvarEstado } from "./core/storage.js";
 import { registrarVisita } from "./core/progresso.js";
 import { LIVROS_DISPONIVEIS } from "../conteudo/livros.js";
 import * as inicio from "./ui/inicio.js";
@@ -8,7 +8,8 @@ import * as diario from "./ui/diario.js";
 import * as revisao from "./ui/revisao.js";
 
 const telas = { inicio, leitura, diario, revisao };
-let estado = carregarEstado();
+const carga = carregarComAviso();
+let estado = carga.estado;
 
 export function getEstado() {
   return estado;
@@ -71,6 +72,9 @@ export function getVisitaAnterior() {
 
 setEstado(registrarVisita(estado, new Date()));
 irPara("inicio");
+if (carga.recuperado) {
+  avisar("Encontramos dados danificados e guardamos uma cópia. Se tiver backup, use Importar diário.");
+}
 
 // Funcionar sem internet (só quando aberto por um servidor, não como arquivo solto).
 if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {

@@ -24,3 +24,7 @@ test("manifest usa caminhos relativos (GitHub Pages)", () => {
   assert.equal(m.lang, "pt-BR");
   assert.deepEqual(m.icons.map((i) => i.sizes), ["192x192", "512x512"]);
 });
+
+test("instalação busca arquivos novos, sem cache HTTP antigo", () => {
+  assert.match(readFileSync("sw.js", "utf8"), /cache: "reload"/);
+});

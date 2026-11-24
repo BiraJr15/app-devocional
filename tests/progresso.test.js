@@ -91,3 +91,18 @@ test("saudacao de retorno após 3 dias, sem culpa", () => {
 test("registrarVisita atualiza ultimaVisita", () => {
   assert.equal(registrarVisita(estadoInicial(), dia(24)).ultimaVisita, "2026-11-24");
 });
+
+test("editar uma leitura em outro dia mantém a data original", () => {
+  let e = concluirLeitura(estadoInicial(), "fa-01", resp("primeira"), dia(23));
+  e = concluirLeitura(e, "fa-01", resp("corrigida"), dia(25));
+  assert.equal(e.concluidas["fa-01"].data, "2026-11-23");
+  assert.equal(e.concluidas["fa-01"].respostas.aconteceu, "corrigida");
+  assert.deepEqual(diasDaSemana(e, dia(25)), [false, true, false, false, false, false, false]);
+});
+
+test("capítulo não é dado como terminado se o conteúdo do livro está incompleto", () => {
+  const parcial = { ...livro, completo: false };
+  const e = com(["fa-01", 21], ["fa-02", 22], ["fa-03", 23], ["fa-04", 24]);
+  assert.equal(capituloTerminado(parcial, e, "fa-04"), null);
+  assert.equal(capituloTerminado(parcial, e, "fa-02"), 1);
+});

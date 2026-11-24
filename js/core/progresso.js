@@ -13,13 +13,15 @@ export function progressoLivro(livro, estado) {
 }
 
 // Devolve um NOVO estado (não altera o original).
-// Refazer uma leitura substitui as respostas e a data.
+// Refazer ou editar uma leitura substitui as respostas, mas mantém o dia
+// em que ela foi feita pela primeira vez (para a semana não mudar).
 export function concluirLeitura(estado, leituraId, respostas, hoje) {
+  const data = estado.concluidas[leituraId]?.data ?? dataLocal(hoje);
   return {
     ...estado,
     concluidas: {
       ...estado.concluidas,
-      [leituraId]: { data: dataLocal(hoje), respostas: { ...respostas } },
+      [leituraId]: { data, respostas: { ...respostas } },
     },
   };
 }
@@ -42,9 +44,12 @@ export function diasDaSemana(estado, hoje) {
 }
 
 // Número do capítulo, se esta leitura fechou o capítulo; senão null.
+// Se o conteúdo do livro ainda está incompleto (completo: false), a última
+// leitura disponível não fecha capítulo: o resto dele ainda não foi escrito.
 export function capituloTerminado(livro, estado, leituraId) {
   const leitura = livro.leituras.find((l) => l.id === leituraId);
   if (!leitura) return null;
+  if (livro.completo === false && livro.leituras.at(-1).id === leituraId) return null;
   const doCapitulo = livro.leituras.filter((l) => l.capitulo === leitura.capitulo);
   const ultima = doCapitulo[doCapitulo.length - 1];
   const todas = doCapitulo.every((l) => estado.concluidas[l.id]);

@@ -60,3 +60,29 @@ test("importarEstado rejeita arquivos inválidos", () => {
     assert.throws(() => importarEstado(texto), { message: "Arquivo de backup inválido" });
   }
 });
+
+import { carregarComAviso } from "../js/core/storage.js";
+
+test("navegador bloqueando localStorage não derruba o app", () => {
+  Object.defineProperty(globalThis, "localStorage", { configurable: true, get() { throw new Error("SecurityError"); } });
+  try {
+    assert.deepEqual(carregarEstado(), estadoInicial());
+    assert.equal(salvarEstado(estadoInicial()), false);
+  } finally {
+    delete globalThis.localStorage;
+  }
+});
+
+test("dados danificados são guardados numa cópia antes de serem substituídos", () => {
+  const s = storeFalso();
+  s.setItem("devocional:v1", '{"versao":2,"x":1}');
+  const r = carregarComAviso(s);
+  assert.deepEqual(r.estado, estadoInicial());
+  assert.equal(r.recuperado, true);
+  assert.equal(s.dados["devocional:v1:corrompido"], '{"versao":2,"x":1}');
+});
+
+test("carregarComAviso sem problema não avisa", () => {
+  const s = storeFalso();
+  assert.equal(carregarComAviso(s).recuperado, false);
+});

@@ -3,6 +3,8 @@
 export default {
   id: "mateus",
   nome: "Mateus",
+  // Mude para true quando todas as leituras até Mateus 28 estiverem escritas.
+  completo: false,
   leituras: [
     {
       id: "mt-01", capitulo: 1, ref: "Mateus 1:1-17", titulo: "A família de Jesus",
@@ -42,7 +44,7 @@ export default {
     },
     {
       id: "mt-07", capitulo: 4, ref: "Mateus 4:1-11", titulo: "Jesus é tentado no deserto",
-      contexto: "Depois do batismo, o Espírito levou Jesus ao deserto, onde ele jejuou por quarenta dias. O diabo tentou Jesus três vezes, oferecendo atalhos ligados a comida, fama e poder. Jesus venceu cada tentação respondendo com as Escrituras.",
+      contexto: "Depois do batismo, o Espírito levou Jesus ao deserto, onde ele jejuou por quarenta dias. O diabo tentou Jesus três vezes, oferecendo atalhos: transformar pedras em pão, pôr Deus à prova e ganhar poder sobre o mundo. Jesus venceu cada tentação respondendo com as Escrituras.",
       palavra: { termo: "Tentação", explicacao: "Um convite para fazer algo errado, ou para conseguir algo bom pelo caminho errado. Jesus mostra que a Palavra de Deus nos ajuda a resistir." },
       oracao: "Senhor, quando eu for tentado, lembra-me da tua Palavra. Dá-me força para escolher o teu caminho.",
     },
