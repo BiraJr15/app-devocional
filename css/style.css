@@ -185,3 +185,27 @@ textarea { min-height: 5.5rem; resize: vertical; }
 
 textarea::placeholder, input::placeholder { color: #9AA3AF; }
 .entrada:hover { border-color: var(--laranja); }
+
+/* Início ocupa a tela inteira do celular, sem rolagem.
+   Espaços e blocos crescem com a altura da tela (dvh = altura visível). */
+.sem-quebra { white-space: nowrap; }
+#app.tela-inicio {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+  justify-content: space-between;
+  gap: clamp(.6rem, 2.4dvh, 1.5rem);
+  padding-top: clamp(.9rem, 3dvh, 2rem);
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + clamp(.9rem, 2.4dvh, 1.5rem));
+}
+#app.tela-inicio > * { margin: 0; }
+#app.tela-inicio .hoje {
+  padding: clamp(1rem, 3.4dvh, 2.5rem) 1.25rem;
+}
+#app.tela-inicio .hoje .referencia { font-size: clamp(1.7rem, min(9.2vw, 5.6dvh), 2.8rem); margin-bottom: clamp(.3rem, 1dvh, .7rem); }
+#app.tela-inicio .hoje .titulo { margin-bottom: clamp(.9rem, 3dvh, 1.75rem); }
+#app.tela-inicio .semana { justify-content: space-between; }
+#app.tela-inicio .bolinha { width: clamp(1.5rem, min(4.2dvh, 9.5vw), 2.25rem); height: clamp(1.5rem, min(4.2dvh, 9.5vw), 2.25rem); }
+#app.tela-inicio .barra { height: clamp(.55rem, 1.1dvh, .8rem); }
+#app.tela-inicio .atalhos button { min-height: clamp(3rem, 8dvh, 4.25rem); }

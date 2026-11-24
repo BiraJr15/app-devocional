@@ -29,6 +29,7 @@ export function livroAtual() {
 export function irPara(tela, params) {
   const raiz = document.getElementById("app");
   raiz.innerHTML = "";
+  raiz.className = `tela-${tela}`;
   // As telas chamam raiz.append(...) com listas e valores vazios; "montar" cuida disso.
   const alvo = { append: (...filhos) => raiz.append(...montar(...filhos)) };
   telas[tela].render(alvo, params);
