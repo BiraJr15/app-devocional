@@ -1,7 +1,7 @@
 // Guarda os arquivos do app para funcionar sem internet.
 // Ao mudar qualquer arquivo, aumente a versão do CACHE (ex.: devocional-v2).
 // Ao criar um arquivo novo, inclua-o na lista ARQUIVOS (o teste avisa se esquecer).
-const CACHE = "devocional-v5";
+const CACHE = "devocional-v6";
 const ARQUIVOS = [
   "./",
   "./index.html",

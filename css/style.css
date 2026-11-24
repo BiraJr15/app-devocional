@@ -201,7 +201,12 @@ textarea::placeholder, input::placeholder { color: #9AA3AF; }
 }
 #app.tela-inicio > * { margin: 0; }
 #app.tela-inicio .hoje {
-  padding: clamp(1rem, 3.4dvh, 2.5rem) 1.25rem;
+  flex: 1 1 auto;
+  max-height: 16rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(1rem, 3dvh, 2rem) 1.25rem;
 }
 #app.tela-inicio .hoje .referencia { font-size: clamp(1.7rem, min(9.2vw, 5.6dvh), 2.8rem); margin-bottom: clamp(.3rem, 1dvh, .7rem); }
 #app.tela-inicio .hoje .titulo { margin-bottom: clamp(.9rem, 3dvh, 1.75rem); }
