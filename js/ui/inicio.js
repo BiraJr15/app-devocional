@@ -71,7 +71,7 @@ function cartaoFim(livro) {
 
 function feitaHoje(leitura) {
   return el("div", { class: "feita-hoje" },
-    el("p", {}, `Feita hoje: ${leitura.ref}`),
+    el("p", {}, "Feita hoje: ", el("span", { class: "sem-quebra" }, leitura.ref)),
     el("button", { class: "link", onclick: () => irPara("leitura", { id: leitura.id, passo: 4, voltar: "inicio" }) }, "Editar respostas"),
   );
 }
