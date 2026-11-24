@@ -33,7 +33,7 @@ body {
 #app {
   max-width: 34rem;
   margin: 0 auto;
-  padding: calc(var(--espaco) * 1.5) var(--espaco) calc(var(--espaco) * 3);
+  padding: 1rem var(--espaco) 1.25rem;
   min-height: 100vh;
 }
 
@@ -67,30 +67,31 @@ button:focus-visible, textarea:focus-visible, input:focus-visible {
 .acoes > * { flex: 1; }
 
 /* Início */
-.saudacao { margin-bottom: 1.75rem; }
+.saudacao { margin-bottom: .85rem; font-size: 1.5rem; }
 .hoje {
   background: linear-gradient(160deg, var(--superficie-2), var(--superficie));
   border-radius: 22px;
-  padding: 1.6rem;
+  padding: 1.2rem 1.25rem;
   border: 1px solid var(--borda);
   box-shadow: 0 14px 34px rgba(30, 34, 41, .35);
-  margin-bottom: 1.75rem;
+  margin-bottom: 1rem;
 }
 .hoje .rotulo { color: var(--suave); font-size: .9rem; margin-bottom: .25rem; }
 .hoje .referencia {
   font-family: var(--serifa);
-  font-size: 2.3rem;
+  font-size: clamp(1.7rem, 9.2vw, 2.3rem);
+  white-space: nowrap;
   line-height: 1.1;
   color: var(--laranja-claro);
   margin: 0 0 .35rem;
   letter-spacing: -.01em;
 }
-.hoje .titulo { font-family: var(--serifa); font-style: italic; color: var(--suave); margin-bottom: 1.25rem; }
+.hoje .titulo { font-family: var(--serifa); font-style: italic; color: var(--suave); margin-bottom: .9rem; }
 
 .semana { display: flex; gap: .55rem; margin: .5rem 0 .25rem; }
 .dia { display: flex; flex-direction: column; align-items: center; gap: .3rem; font-size: .75rem; color: var(--suave); }
 .bolinha {
-  width: 1.6rem; height: 1.6rem; border-radius: 50%;
+  width: 1.5rem; height: 1.5rem; border-radius: 50%;
   border: 2px solid var(--borda);
   background: var(--fundo-baixo);
 }
@@ -98,12 +99,16 @@ button:focus-visible, textarea:focus-visible, input:focus-visible {
 .dia.hoje-marcado span:last-child { color: var(--laranja-claro); font-weight: 700; }
 .dia.hoje-marcado .bolinha { border-color: var(--laranja-claro); }
 
-.progresso { margin: 1.5rem 0; }
+.progresso { margin: .85rem 0 .9rem; }
+.progresso .barra { margin: .3rem 0 0; }
+.linha { display: flex; align-items: baseline; justify-content: space-between; gap: .75rem; }
+.linha h2, .linha p { margin: 0; }
+.bloco-semana .semana { margin: .45rem 0 0; }
 .barra { height: .55rem; background: #363D48; border-radius: 999px; overflow: hidden; margin: .4rem 0; }
 .barra > div { height: 100%; background: linear-gradient(90deg, var(--laranja), var(--laranja-claro)); border-radius: 999px; }
 
 .atalhos { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
-.atalhos button { border-radius: var(--raio); font-size: .92rem; padding: .8rem .6rem; }
+.atalhos button { border-radius: var(--raio); font-size: .92rem; padding: .55rem .6rem; }
 .destaque { border-color: var(--laranja); color: var(--laranja-claro); }
 
 .comemoracao { text-align: center; padding: 1rem 0; }
@@ -166,7 +171,7 @@ textarea { min-height: 5.5rem; resize: vertical; }
 }
 .feita-hoje {
   display: flex; align-items: center; justify-content: space-between; gap: .75rem;
-  margin: -.75rem 0 1.5rem; padding: .6rem 1rem;
+  margin: -.25rem 0 .85rem; padding: .45rem .9rem;
   border: 1px dashed var(--borda); border-radius: var(--raio);
   font-size: .92rem; color: var(--suave);
 }

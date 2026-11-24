@@ -20,8 +20,11 @@ export function render(raiz) {
     el("h1", { class: "saudacao" }, saudacao({ ...estado, ultimaVisita: getVisitaAnterior() }, hoje)),
     leitura ? cartaoHoje(leitura) : cartaoFim(livro),
     leiturasDeHoje(livro, estado, hoje).map(feitaHoje),
-    el("section", { "aria-label": "Sua semana" },
-      el("h2", {}, "Esta semana"),
+    el("section", { class: "bloco-semana", "aria-label": "Sua semana" },
+      el("div", { class: "linha" },
+        el("h2", {}, "Esta semana"),
+        el("span", { class: "leve" }, `${dias.filter(Boolean).length} de ${META_SEMANAL} dias`),
+      ),
       el("div", { class: "semana" },
         dias.map((feito, i) =>
           el("div", { class: `dia${i === hoje.getDay() ? " hoje-marcado" : ""}` },
@@ -30,10 +33,12 @@ export function render(raiz) {
           ),
         ),
       ),
-      el("p", { class: "leve" }, `${dias.filter(Boolean).length} ${dias.filter(Boolean).length === 1 ? "dia" : "dias"} com leitura (meta: ${META_SEMANAL} dias)`),
     ),
     el("section", { class: "progresso", "aria-label": "Progresso no livro" },
-      el("p", { class: "leve" }, `${livro.nome}: ${feitas} de ${total} leituras`),
+      el("div", { class: "linha" },
+        el("span", { class: "leve" }, livro.nome),
+        el("span", { class: "leve" }, `${feitas} de ${total} leituras`),
+      ),
       el("div", { class: "barra", role: "progressbar", "aria-valuemin": 0, "aria-valuemax": total, "aria-valuenow": feitas },
         el("div", { style: `width:${total ? (feitas / total) * 100 : 0}%` }),
       ),
@@ -66,7 +71,7 @@ function cartaoFim(livro) {
 
 function feitaHoje(leitura) {
   return el("div", { class: "feita-hoje" },
-    el("p", {}, `Hoje você leu ${leitura.ref}.`),
+    el("p", {}, `Feita hoje: ${leitura.ref}`),
     el("button", { class: "link", onclick: () => irPara("leitura", { id: leitura.id, passo: 4, voltar: "inicio" }) }, "Editar respostas"),
   );
 }
