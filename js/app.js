@@ -41,7 +41,8 @@ export function avisar(texto) {
   el.textContent = texto;
   el.hidden = false;
   clearTimeout(temporizador);
-  temporizador = setTimeout(() => { el.hidden = true; }, 3500);
+  temporizador = setTimeout(() => { el.hidden = true; }, 2800);
+  el.onclick = () => { el.hidden = true; };
 }
 
 // Lista de filhos pronta para raiz.append(...): achata listas e ignora vazios/false.

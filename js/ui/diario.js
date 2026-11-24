@@ -35,12 +35,13 @@ export function render(raiz) {
 }
 
 function cartao({ leitura, data, respostas }) {
-  return el("button", { class: "entrada", onclick: () => irPara("leitura", { id: leitura.id, passo: 4 }) },
+  return el("button", { class: "entrada", onclick: () => irPara("leitura", { id: leitura.id, passo: 4, voltar: "diario" }) },
     el("span", { class: "leve" }, dataCurta(data)), " ",
     el("strong", {}, leitura.ref),
     el("p", {}, leitura.titulo),
     respostas.praticar && el("p", {}, `Vou praticar: ${respostas.praticar}`),
     respostas.versiculo && el("p", { class: "versiculo" }, respostas.versiculo),
+    el("span", { class: "editar" }, "Toque para ver ou editar"),
   );
 }
 

@@ -13,7 +13,7 @@ const PERGUNTAS = [
 // Rascunho em memória: não se perde ao voltar e avançar entre os passos.
 let rascunho = null;
 
-export function render(raiz, { id, passo = 1 } = {}) {
+export function render(raiz, { id, passo = 1, voltar = "inicio" } = {}) {
   const livro = livroAtual();
   const leitura = livro.leituras.find((l) => l.id === id);
   if (!leitura) return irPara("inicio");
@@ -23,18 +23,18 @@ export function render(raiz, { id, passo = 1 } = {}) {
     rascunho = { id, respostas: { aconteceu: "", aprendi: "", praticar: "", versiculo: "", ...salvo } };
   }
 
-  const ir = (n) => irPara("leitura", { id, passo: n });
+  const ir = (n) => irPara("leitura", { id, passo: n, voltar });
 
   raiz.append(
     el("div", { class: "topo" },
-      el("button", { class: "link", onclick: () => irPara("inicio") }, "Sair"),
+      el("button", { class: "link", onclick: () => irPara(voltar) }, "Sair"),
       el("span", { class: "leve" }, leitura.ref),
     ),
     el("div", { class: "trilha", "aria-hidden": "true" },
       Array.from({ length: TOTAL }, (_, i) => el("span", { class: i < passo ? "ativo" : "" })),
     ),
     el("p", { class: "passo-num" }, `Passo ${passo} de ${TOTAL}`),
-    conteudoDoPasso(passo, leitura, livro, ir),
+    conteudoDoPasso(passo, leitura, livro, ir, voltar),
     blocoDuvida(leitura.ref),
   );
 }
@@ -46,7 +46,7 @@ function navegacao(passo, ir, textoAvancar = "Continuar", aoAvancar = () => ir(p
   );
 }
 
-function conteudoDoPasso(passo, leitura, livro, ir) {
+function conteudoDoPasso(passo, leitura, livro, ir, voltar) {
   switch (passo) {
     case 1:
       return el("section", {},
@@ -79,7 +79,7 @@ function conteudoDoPasso(passo, leitura, livro, ir) {
         el("h1", {}, "Orar"),
         el("p", { class: "oracao" }, leitura.oracao),
         el("p", { class: "leve" }, "Continue com suas próprias palavras."),
-        navegacao(passo, ir, "Concluir", () => concluir(leitura, livro)),
+        navegacao(passo, ir, "Concluir", () => concluir(leitura, livro, voltar)),
       );
   }
 }
@@ -92,7 +92,7 @@ function campo(chave, rotulo, tipo) {
   return [el("label", { class: "pergunta", for: idCampo }, rotulo), entrada];
 }
 
-function concluir(leitura, livro) {
+function concluir(leitura, livro, voltar) {
   const jaFeita = Boolean(getEstado().concluidas[leitura.id]);
   const novo = concluirLeitura(getEstado(), leitura.id, rascunho.respostas, new Date());
   setEstado(novo);
@@ -100,7 +100,7 @@ function concluir(leitura, livro) {
   const cap = capituloTerminado(livro, novo, leitura.id);
   if (jaFeita) {
     avisar("Respostas atualizadas.");
-    return irPara("diario");
+    return irPara(voltar);
   }
   avisar(cap ? `Você terminou o capítulo ${cap} de ${livro.nome}!` : "Leitura concluída. Até amanhã!");
   irPara("inicio");
